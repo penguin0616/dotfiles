@@ -1,0 +1,224 @@
+#!/usr/bin/env bash
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+
+prompt_git() {
+	local branchName='';
+	
+    # Check if the current directory is in a Git repository.
+	git rev-parse --is-inside-work-tree &>/dev/null || return;
+
+	# Check for what branch we’re on.
+	# Get the short symbolic ref. If HEAD isn’t a symbolic ref, get a
+	# tracking remote branch or tag. Otherwise, get the
+	# short SHA for the latest commit, or give up.
+	branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+		git describe --all --exact-match HEAD 2> /dev/null || \
+		git rev-parse --short HEAD 2> /dev/null || \
+		echo '(unknown)')";
+
+	echo -e "${1}${branchName}${2}"
+}
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# Taken from https://github.com/mathiasbynens/dotfiles/blob/main/.bash_prompt
+if tput setaf 1 &> /dev/null; then
+	tput sgr0; # reset colors
+	bold=$(tput bold);
+	reset=$(tput sgr0);
+	# Solarized colors, taken from http://git.io/solarized-colors.
+	solar_black=$(tput setaf 0);
+	solar_blue=$(tput setaf 33);
+	solar_cyan=$(tput setaf 37);
+	solar_green=$(tput setaf 64);
+	solar_orange=$(tput setaf 166);
+	solar_purple=$(tput setaf 125);
+	solar_red=$(tput setaf 124);
+	solar_violet=$(tput setaf 61);
+	solar_white=$(tput setaf 15);
+	solar_yellow=$(tput setaf 136);
+fi;
+
+# ANSI color codes
+# https://gist.github.com/JBlond/2fea43a3049b38287e5e9cefc87b2124
+# Note: \e doesn't work on this terminal correctly for some reason. So...
+# Find: \\e\[0;(\d+)m
+# Replace: \\e\[0;(\d+)m
+
+bold='';
+reset="\033[0m";
+black="\033[00;30m";
+blue="\033[00;34m";
+cyan="\033[00;36m";
+green="\033[0;32m";
+orange="\033[00;33m";
+purple="\033[00;35m";
+red="\033[00;31m";
+violet="\033[00;35m";
+white="\033[00;37m";
+yellow="\033[00;33m";
+
+bold_black="\033[01;30m";
+bold_blue="\033[01;34m";
+bold_cyan="\033[01;36m";
+bold_green="\033[01;32m";
+bold_orange="\033[01;33m";
+bold_purple="\033[01;35m";
+bold_red="\033[01;31m";
+bold_violet="\033[01;35m";
+bold_white="\033[01;37m";
+bold_yellow="\033[01;33m";
+
+# $ who am i
+
+get_userstyle() {
+	echo -e $userStyle
+}
+
+wah() {
+    echo "\[$(tput setaf 2)\]"
+}
+
+get_hoststyle() {
+    echo -e $hostStyle
+}
+
+get_username() {
+	echo $USER;
+}
+
+get_hostname() {
+	echo $HOSTNAME
+}
+
+# \[\033[00;32m\]
+# \033[00;32m
+
+# Check where we're running.
+
+loginShell=""
+if shopt -q login_shell; then
+	loginShell="LS-"
+fi
+
+shellLocation="???"
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+    shellLocation="WSL"
+elif [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+	shellLocation="SSH"
+fi
+
+interactiveShell=""
+if [[ $- == *i* ]]; then
+	interactiveShell="-I"
+fi
+
+
+if [ "$color_prompt" = yes ]; then
+	# bold green = '\[\033[01;32m\]\u\[\033[00m\]'
+	# normal green = '\[\033[00;32m\]\u\[\033[00m\]'
+	if [[ "${USER}" == "root" ]]; then
+		userStyle="${red}"
+	else
+		userStyle="${green}"
+	fi
+else
+	userStyle='';
+fi
+
+if [ "$color_prompt" = yes ]; then
+	# bold green = '\[\033[01;32m\]@\h\[\033[00m\]'
+	# normal green = '\[\033[00;32m\]@\h\[\033[00m\]'
+	if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+		hostStyle="${bold}${red}";
+	else
+		hostStyle="${green}";
+	fi;
+else
+	hostStyle='';
+fi
+
+
+
+
+
+
+
+# user@host was green, : was white, path was blue, $ was white 
+
+# git bash
+# \[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@\h \[\033[35m\]$MSYSTEM \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$
+
+# https://stackoverflow.com/questions/59546594/bash-ps1-prompt-breaks-line-wrapping-when-generating-ansi-escapes-by-an-external
+# The \[ \] has to be within the actual PS1 prompt.
+
+
+alias BEGINCOMMENT="if [ ]; then"
+alias ENDCOMMENT="fi"
+
+PS1="${debian_chroot:+($debian_chroot)}" # Idk what this is
+#PS1+="\$(get_userstyle)tst="
+#PS1+="\$(echo -e \"\[\033[00;31m\]\")wah: "
+#PS1+="\$(echo \$(get_userstyle))wah: "
+#BEGINCOMMENT
+PS1+="\[\$(get_userstyle)\]\$(get_username)"
+PS1+="\[${reset}\]"
+PS1+="\[\$(get_hoststyle)\]@" # At Symbol
+PS1+="\[${reset}\]"
+PS1+="\[\$(get_hoststyle)\]\$(get_hostname)" # Hostname
+PS1+="\[${reset}\]"
+if [ -n "$shellLocation" ]; then
+	PS1+="\[${violet}\] ($loginShell$shellLocation$interactiveShell)\[${reset}\]" # Check if running on WSL
+fi
+PS1+=" "
+PS1+="\[${blue}\]\w" # Present Working Directory
+PS1+="\[${reset}\]"
+PS1+="\$(prompt_git ' \[${yellow}\](' ')\[${reset}\] ')"
+PS1+="$ "
+#ENDCOMMENT
+
+unset shellLocation;
+#unset userStyle;
+#unset hostStyle;
+
+#PS1="\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@\h \[\033[35m\]$MSYSTEM \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$"
+#PS1="\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@"
+
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
