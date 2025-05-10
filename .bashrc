@@ -141,6 +141,6 @@ else
 fi
 
 # Load Oh-my-posh theme.
-eval "$(oh-my-posh init bash --config $SCRIPT_DIR/posh-themes/my_theme.json)"
+eval "$(oh-my-posh init bash --config $SCRIPT_DIR/posh-themes/my_theme.omp.json)"
 
 unset SCRIPT_DIR
