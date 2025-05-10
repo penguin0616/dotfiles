@@ -99,11 +99,11 @@
 					"style": "diamond",
 					"leading_diamond": "\ue0b6",
 					"trailing_diamond": "\ue0b4",
-					"foreground": "#1b2a35",
+					"foreground": "#ffffff",
 					"foreground_templates": [],
-					"background": "#666666",
+					"background": "#1b2a35",
 					"background_templates": [
-						"{{ if gt .Code 0 }}#bb3333{{ end }}"
+						"{{ if gt .Code 0 }}#990000{{ end }}"
 					],
 					"template": "{{ if gt .Code 0 }}Error [{{ .String }}]: {{ reason .Code }}{{ else }}\uf42e{{ end }}",
 					"properties": {
