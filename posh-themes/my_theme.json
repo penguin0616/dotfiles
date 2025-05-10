@@ -74,15 +74,16 @@
 						"home_enabled": true
 					}
 				},
+				
 				{
 					"type": "time",
 					"style": "diamond",
-					"invert_powerline": true,
 					"leading_diamond": "\ue0b2",
 					"trailing_diamond": "\ue0b4",
 					"foreground": "#fcfcfc",
 					"background": "#444499",
 					"template": "{{ .CurrentDate | date .Format }}",
+					"min_width": 100,
 					"properties": {
 						"time_format": "03:04:05 PM MST"
 					}
