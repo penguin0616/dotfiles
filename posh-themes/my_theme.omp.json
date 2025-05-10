@@ -2,11 +2,23 @@
 	"$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
 	"final_space": true,
 	"version": 3,
+	"palette": {
+		"wsl": "#770077",
+		"pwsh_blue": "#2c4461",
+		"github_green": "#1c8139",
+		"gitlab_orange": "#fca326"
+	},
 	"blocks": [
 		{
 			"type": "prompt",
 			"alignment": "left",
 			"segments": [
+				{
+					"type": "text",
+					"style": "plain",
+					"template": "",
+					"properties": {}
+				},
 				{
 					"type": "session",
 					"style": "plain",
@@ -23,6 +35,10 @@
 					"type": "session",
 					"style": "plain",
 					"foreground": "#c8ff05",
+					"foreground_templates": [
+						"{{ if .SSHSession }}red{{ end }}",
+						"{{ if .WSL }}p:wsl{{ end }}"
+					],
 					"template": "{{.HostName}}"
 				},
 				{
@@ -51,30 +67,53 @@
 			"alignment": "right",
 			"segments": [
 				{
-					"type": "git",
-					"style": "diamond",
-					"leading_diamond": "\ue0b2",
-					"foreground": "#ffffff",
-					"background": "#1c8139",
-					"template": "{{ .UpstreamIcon }}{{ .User.Name }}",
-					"properties": {
-						"fetch_user": true,
-						"fetch_upstream_icon": true
-					}
-				},
-				{
 					"type": "python",
 					"style": "diamond",
 					"leading_diamond": "\ue0b2",
-					"foreground": "transparent",
-					"background": "#ded15e",
-					"template": "{{ .Venv }}",
+					"foreground": "#000000",
+					"background": "#ffe600",
+					"template": "{{ if .Venv }}\ue235({{ .Venv }}){{ end }}",
 					"properties": {
 						"fetch_virtual_env": true,
 						"home_enabled": true
 					}
 				},
-				
+				{
+					"type": "shell",
+					"style": "diamond",
+					"leading_diamond": "\ue0b2",
+					"foreground": "#ffffff",
+					"foreground_templates": [
+						"{{ if eq .Name \"bash\" }}#000000{{ end }}",
+						"{{ if eq .Name \"pwsh\" }}#ffffff{{ end }}"
+					],
+					"background": "#444444",
+					"background_templates": [
+						"{{ if eq .Name \"bash\" }}#8dba3c{{ end }}",
+						"{{ if eq .Name \"pwsh\" }}p:pwsh_blue{{ end }}"
+					],
+					"template": "{{ .Name }}",
+					"properties": {
+						
+					}
+				},
+				{
+					"type": "session",
+					"style": "diamond",
+					"leading_diamond": "\ue0b2",
+					"foreground": "#ffffff",
+					"foreground_templates": [
+						"{{ if .SSHSession }}#ffffff{{ end }}",
+						"{{ if .WSL }}#ffffff{{ end }}"
+					],
+					"background": "#444444",
+					"background_templates": [
+						"{{ if .SSHSession }}red{{ end }}",
+						"{{ if .WSL }}p:wsl{{ end }}"
+					],
+					"template": "{{ if .SSHSession }}SSH{{ else if .WSL }}WSL{{ end }}",
+					"properties": {}
+				},
 				{
 					"type": "time",
 					"style": "diamond",
@@ -114,8 +153,38 @@
 			]
 		},
 		{
-			"alignment": "left",
+			"type": "prompt",
 			"newline": true,
+			"alignment": "left",
+			"segments": [
+				{
+					"type": "text",
+					"style": "plain",
+					"template": "\u2570\u2500",
+					"properties": {}
+				},
+				{
+					"type": "git",
+					"style": "diamond",
+					"leading_diamond": "\ue0b7",
+					"trailing_diamond": "\ue0b5",
+					"foreground": "#ffffff",
+					"foreground_templates": [
+						"{{ if matchP \"github\" .UpstreamURL }}p:github_green{{ end }}",
+						"{{ if matchP \"gitlab\" .UpstreamURL }}p:gitlab_orange{{ end }}"
+					],
+					"template": "{{ .UpstreamIcon }}{{ .User.Name }}",
+					"properties": {
+						"fetch_user": true,
+						"fetch_upstream_icon": true
+					}
+				}
+			]
+		},
+		{
+			"type": "prompt",
+			"alignment": "left",
+			"newline": false,
 			"segments": [
 				{
 					"foreground": "#ff0000",
@@ -124,13 +193,12 @@
 					"type": "root"
 				},
 				{
-					"foreground": "#CD4277",
+					"foreground": "#ffffff",
 					"style": "plain",
-					"template": ">",
+					"template": " $",
 					"type": "text"
 				}
-			],
-			"type": "prompt"
+			]
 		}
 	]
 }
