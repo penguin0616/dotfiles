@@ -65,14 +65,32 @@
 		{
 			"type": "prompt",
 			"alignment": "right",
+			"leading_diamond": "\ue0b2",
+			"trailing_diamond": "<transparent>\ue0b2</>",
+			"overflow": "hide",
 			"segments": [
+				{
+					"type": "status",
+					"style": "diamond",
+					"leading_diamond": "\ue0b2",
+					"foreground": "#ffffff",
+					"foreground_templates": [],
+					"background": "#1b2a35",
+					"background_templates": [
+						"{{ if gt .Code 0 }}#990000{{ end }}"
+					],
+					"template": " {{ if gt .Code 0 }}Error [{{ .String }}]: {{ reason .Code }}{{ else }}\uf42e{{ end }} ",
+					"properties": {
+						"always_enabled": false
+					}
+				},
 				{
 					"type": "python",
 					"style": "diamond",
 					"leading_diamond": "\ue0b2",
 					"foreground": "#000000",
 					"background": "#ffe600",
-					"template": "{{ if .Venv }}\ue235({{ .Venv }}){{ end }}",
+					"template": " {{ if .Venv }}\ue235({{ .Venv }}){{ end }} ",
 					"properties": {
 						"fetch_virtual_env": true,
 						"home_enabled": true
@@ -92,7 +110,7 @@
 						"{{ if eq .Name \"bash\" }}#8dba3c{{ end }}",
 						"{{ if eq .Name \"pwsh\" }}p:pwsh_blue{{ end }}"
 					],
-					"template": "{{ .Name }}",
+					"template": " {{ .Name }} ",
 					"properties": {}
 				},
 				{
@@ -109,43 +127,31 @@
 						"{{ if .SSHSession }}red{{ end }}",
 						"{{ if .WSL }}p:wsl{{ end }}"
 					],
-					"template": "{{ if .SSHSession }}SSH{{ else if .WSL }}WSL{{ end }}",
+					"template": " {{ if .SSHSession }}SSH{{ else if .WSL }}WSL{{ end }} ",
 					"properties": {}
 				},
 				{
 					"type": "time",
 					"style": "diamond",
 					"leading_diamond": "\ue0b2",
-					"trailing_diamond": "\ue0b4",
 					"foreground": "#fcfcfc",
 					"background": "#444499",
-					"template": "{{ .CurrentDate | date .Format }}",
+					"template": " {{ .CurrentDate | date .Format }} ",
 					"min_width": 100,
 					"properties": {
 						"time_format": "03:04:05 PM MST"
 					}
-				}
-			]
-		},
-		{
-			"type": "prompt",
-			"alignment": "left",
-			"newline": true,
-			"segments": [
+				},
 				{
-					"type": "status",
+					"type": "executiontime",
 					"style": "diamond",
-					"leading_diamond": "\ue0b6",
-					"trailing_diamond": "\ue0b4",
-					"foreground": "#ffffff",
-					"foreground_templates": [],
-					"background": "#1b2a35",
-					"background_templates": [
-						"{{ if gt .Code 0 }}#990000{{ end }}"
-					],
-					"template": "{{ if gt .Code 0 }}Error [{{ .String }}]: {{ reason .Code }}{{ else }}\uf42e{{ end }}",
+					"leading_diamond": "\ue0b2",
+					"foreground": "#fcfcfc",
+					"background": "#111666",
+					"template": " {{ .FormattedMs }} ",
 					"properties": {
-						"always_enabled": false
+						"always_enabled": false,
+						"threshold": 500
 					}
 				}
 			]
