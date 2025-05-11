@@ -4,7 +4,7 @@
 	"version": 3,
 	"palette": {
 		"wsl": "#770077",
-		"pwsh_blue": "#2c4461",
+		"pwsh_blue": "#0e335f",
 		"github_green": "#1c8139",
 		"gitlab_orange": "#fca326"
 	},
