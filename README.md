@@ -2,7 +2,9 @@
 
 ## Setup
 
-1. Install a Nerd Font. I used ["Caskaydia Mono Nerd Font"](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaMono.zip), but more can be found at https://www.nerdfonts.com/font-downloads.  
+1. Install a [Nerd Font](https://www.nerdfonts.com/font-downloads). I used:  
+   - ["CaskaydiaMono Nerd Font"](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaMono.zip)
+   - ["JetBrainsMono Nerd Font"](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
 2. Install [Oh My Posh](https://ohmyposh.dev).
 3. Extract dotfiles folder to your home directory (so you should have ``~/dotfiles``)
 4. Back up your existing dotfiles.

@@ -4,9 +4,12 @@
 	"version": 3,
 	"palette": {
 		"wsl": "#770077",
+		"ssh": "#ff7418",
 		"pwsh_blue": "#0e335f",
 		"github_green": "#1c8139",
-		"gitlab_orange": "#fca326"
+		"gitlab_orange": "#fca326",
+		"azure_blue": "#045796",
+		"root": "#ff4444"
 	},
 	"blocks": [
 		{
@@ -23,7 +26,10 @@
 					"type": "session",
 					"style": "plain",
 					"foreground": "#c8ff05",
-					"template": "{{.UserName}}"
+					"foreground_templates": [
+						"{{ if .Root }}p:root{{ end }}"
+					],
+					"template": "{{ if .Root }}\ue0b7{{.UserName}}\ue0b5{{ else }}{{.UserName}}{{ end }}"
 				},
 				{
 					"type": "session",
@@ -36,10 +42,10 @@
 					"style": "plain",
 					"foreground": "#c8ff05",
 					"foreground_templates": [
-						"{{ if .SSHSession }}red{{ end }}",
+						"{{ if .SSHSession }}p:ssh{{ end }}",
 						"{{ if .WSL }}p:wsl{{ end }}"
 					],
-					"template": "{{.HostName}}"
+					"template": "{{ if .SSHSession }}<i>{{.HostName}}</i>{{ else }}{{.HostName}}{{ end }}"
 				},
 				{
 					"type": "path",
@@ -124,7 +130,7 @@
 					],
 					"background": "#444444",
 					"background_templates": [
-						"{{ if .SSHSession }}red{{ end }}",
+						"{{ if .SSHSession }}p:ssh{{ end }}",
 						"{{ if .WSL }}p:wsl{{ end }}"
 					],
 					"template": " {{ if .SSHSession }}SSH{{ else if .WSL }}WSL{{ end }} ",
@@ -191,16 +197,13 @@
 			"newline": false,
 			"segments": [
 				{
-					"foreground": "#ff0000",
+					"type": "text",
 					"style": "plain",
-					"template": "#",
-					"type": "root"
-				},
-				{
 					"foreground": "#ffffff",
-					"style": "plain",
-					"template": " $",
-					"type": "text"
+					"foreground_templates": [
+						"{{ if .Root }}#ffffff{{ end }}"
+					],
+					"template": " {{ if .Root }}#{{ else }}${{ end }}"
 				}
 			]
 		}
