@@ -120,23 +120,6 @@
 					"properties": {}
 				},
 				{
-					"type": "session",
-					"style": "diamond",
-					"leading_diamond": "\ue0b2",
-					"foreground": "#ffffff",
-					"foreground_templates": [
-						"{{ if .SSHSession }}#ffffff{{ end }}",
-						"{{ if .WSL }}#ffffff{{ end }}"
-					],
-					"background": "#444444",
-					"background_templates": [
-						"{{ if .SSHSession }}p:ssh{{ end }}",
-						"{{ if .WSL }}p:wsl{{ end }}"
-					],
-					"template": " {{ if .SSHSession }}SSH{{ else if .WSL }}WSL{{ end }} ",
-					"properties": {}
-				},
-				{
 					"type": "time",
 					"style": "diamond",
 					"leading_diamond": "\ue0b2",
