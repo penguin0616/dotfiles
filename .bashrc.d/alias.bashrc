@@ -16,4 +16,10 @@ alias taskkill="killall -s SIGKILL $*"  # https://askubuntu.com/questions/271028
 alias check-venv='printf "import sys\nprint(\"Prefix:\", sys.prefix)" | py $1'
 
 # This seems to work!
-source $SCRIPT_DIR/.bashrc.d/alias/*
+if [ -d $SCRIPT_DIR/.bashrc.d/alias ]; then
+    for rc in $SCRIPT_DIR/.bashrc.d/alias/*; do
+        if [ -f "$rc" ]; then
+            source "$rc"
+        fi
+    done
+fi
