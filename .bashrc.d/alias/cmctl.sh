@@ -1,3 +1,3 @@
-if [ ! -z $(which cmctl) ];
-	source <(cmctl completion bash)
+if command -v cmctl &> /dev/null; then
+    source <(cmctl completion bash)
 fi

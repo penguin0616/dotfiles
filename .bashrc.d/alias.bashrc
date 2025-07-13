@@ -12,10 +12,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles/.git/ --work-tree=$HOME/dotfiles'
 alias cls='clear'
 alias taskkill="killall -s SIGKILL $*"  # https://askubuntu.com/questions/271028/killall-doesnt-kill-all-and-rarely-kills-what-is-the-command-for-then
-#alias py="python3"
 alias check-venv='printf "import sys\nprint(\"Prefix:\", sys.prefix)" | py $1'
+alias reload-bash='source ~/.bashrc'
 
-# This seems to work!
+
+# Load other aliases
 if [ -d $SCRIPT_DIR/.bashrc.d/alias ]; then
     for rc in $SCRIPT_DIR/.bashrc.d/alias/*; do
         if [ -f "$rc" ]; then
