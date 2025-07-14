@@ -140,7 +140,15 @@ else
 	echo "Cannot find .venv" > /dev/null
 fi
 
+
+# Set Default Editor
+if command -v vim &> /dev/null; then
+    export VISUAL="/usr/bin/vim"
+	export EDITOR="$VISUAL"
+fi
+
 # Load Oh-my-posh theme.
 eval "$(oh-my-posh init bash --config $SCRIPT_DIR/posh-themes/my_theme.omp.json)"
 
 unset SCRIPT_DIR
+	

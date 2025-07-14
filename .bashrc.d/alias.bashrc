@@ -14,6 +14,7 @@ alias cls='clear'
 alias taskkill="killall -s SIGKILL $*"  # https://askubuntu.com/questions/271028/killall-doesnt-kill-all-and-rarely-kills-what-is-the-command-for-then
 alias check-venv='printf "import sys\nprint(\"Prefix:\", sys.prefix)" | py $1'
 alias reload-bash='source ~/.bashrc'
+alias clip="xsel --clipboard"
 
 
 # Load other aliases
