@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # https://gist.github.com/jgrodziski/9ed4a17709baad10dbcd4530b60dfcbb
 alias d='docker'
 alias dc='docker compose'

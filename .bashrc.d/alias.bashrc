@@ -1,8 +1,5 @@
-# Some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A' # List out "Almost all" (i.e. everything except . and ..)
-alias l='ls -CF'
-alias lh="ls -lh" # h: File size get simplified
+#!/usr/bin/env bash
+# This file is where I keep the more "miscellaneous" aliases and load the other alias files.
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -10,11 +7,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Miscellaneous
 alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles/.git/ --work-tree=$HOME/dotfiles'
-alias cls='clear'
+alias cls='clear' # I'm too used to Windows, plus it's shorter.
 alias taskkill="killall -s SIGKILL $*"  # https://askubuntu.com/questions/271028/killall-doesnt-kill-all-and-rarely-kills-what-is-the-command-for-then
 alias check-venv='printf "import sys\nprint(\"Prefix:\", sys.prefix)" | py $1'
-alias reload-bash='source ~/.bashrc'
-alias clip="xsel --clipboard"
+alias reload-bashrc='source ~/.bashrc' # Inefficiency :(
+alias clip='xsel --clipboard'
 
 
 # Load other aliases
