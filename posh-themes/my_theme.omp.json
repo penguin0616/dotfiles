@@ -3,6 +3,7 @@
 	"final_space": true,
 	"version": 3,
 	"palette": {
+		"white": "#eeeeee",
 		"wsl": "#770077",
 		"ssh": "#ff7418",
 		"pwsh_blue": "#0e335f",
@@ -34,7 +35,7 @@
 				{
 					"type": "session",
 					"style": "plain",
-					"foreground": "#ffffff",
+					"foreground": "p:white",
 					"template": "@"
 				},
 				{
@@ -79,7 +80,7 @@
 					"type": "status",
 					"style": "diamond",
 					"leading_diamond": "\ue0b2",
-					"foreground": "#ffffff",
+					"foreground": "p:white",
 					"foreground_templates": [],
 					"background": "#1b2a35",
 					"background_templates": [
@@ -106,10 +107,10 @@
 					"type": "shell",
 					"style": "diamond",
 					"leading_diamond": "\ue0b2",
-					"foreground": "#ffffff",
+					"foreground": "p:white",
 					"foreground_templates": [
 						"{{ if eq .Name \"bash\" }}#000000{{ end }}",
-						"{{ if eq .Name \"pwsh\" }}#ffffff{{ end }}"
+						"{{ if eq .Name \"pwsh\" }}p:white{{ end }}"
 					],
 					"background": "#444444",
 					"background_templates": [
@@ -161,10 +162,12 @@
 					"style": "diamond",
 					"leading_diamond": "\ue0b7",
 					"trailing_diamond": "\ue0b5",
-					"foreground": "#ffffff",
+					"foreground": "p:white",
 					"foreground_templates": [
-						"{{ if matchP \"github\" .UpstreamURL }}p:github_green{{ end }}",
-						"{{ if matchP \"gitlab\" .UpstreamURL }}p:gitlab_orange{{ end }}"
+						"{{ if matchP \"github.com\" .UpstreamURL }}p:github_green{{ end }}",
+						"{{ if matchP \"gitlab.com\" .UpstreamURL }}p:gitlab_orange{{ end }}",
+						"{{ if matchP \"dev.azure.com\" .UpstreamURL }}p:azure_blue{{ end }}",
+						"{{ if matchP \"visualstudio.com\" .UpstreamURL }}p:azure_blue{{ end }}"
 					],
 					"template": "{{ .UpstreamIcon }}{{ .User.Name }}",
 					"properties": {
@@ -182,9 +185,9 @@
 				{
 					"type": "text",
 					"style": "plain",
-					"foreground": "#ffffff",
+					"foreground": "p:white",
 					"foreground_templates": [
-						"{{ if .Root }}#ffffff{{ end }}"
+						"{{ if .Root }}p:white{{ end }}"
 					],
 					"template": " {{ if .Root }}#{{ else }}${{ end }}"
 				}
