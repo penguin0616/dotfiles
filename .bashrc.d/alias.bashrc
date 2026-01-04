@@ -11,6 +11,7 @@ alias cls='clear' # I'm too used to Windows, plus it's shorter.
 alias taskkill="killall -s SIGKILL $*"  # https://askubuntu.com/questions/271028/killall-doesnt-kill-all-and-rarely-kills-what-is-the-command-for-then
 alias check-venv='printf "import sys\nprint(\"Prefix:\", sys.prefix)" | py $1'
 alias reload-bashrc='source ~/.bashrc' # Inefficiency :(
+alias k9s='k9s --logoless'
 alias clip='xsel --clipboard'
 
 

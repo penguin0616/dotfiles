@@ -140,6 +140,9 @@ else
 	echo "Cannot find .venv" > /dev/null
 fi
 
+if [ -d "$HOME/.cargo/bin" ] ; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # Set Default Editor
 if command -v vim &> /dev/null; then
