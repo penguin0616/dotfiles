@@ -130,6 +130,15 @@ unset rc
 #	fi
 #done;
 
+# Set Default Editor
+if command -v nvim &> /dev/null; then
+    export VISUAL="/usr/bin/nvim"
+	export EDITOR="$VISUAL"
+elif command -v vim &> /dev/null; then
+    export VISUAL="/usr/bin/vim"
+	export EDITOR="$VISUAL"
+fi
+
 # Automatically use Python venv.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 if [ -d ~/.venv/default ]; then  # For some reason, using quotes makes it so it can't find .venv
@@ -149,18 +158,17 @@ if [ -f "$HOME/.cargo/env" ] ; then
     . "$HOME/.cargo/env"
 fi
 
-# Set Default Editor
-if command -v nvim &> /dev/null; then
-    export VISUAL="/usr/bin/nvim"
-	export EDITOR="$VISUAL"
-elif command -v vim &> /dev/null; then
-    export VISUAL="/usr/bin/vim"
-	export EDITOR="$VISUAL"
+# Go
+if [ -d "/usr/local/go/bin" ]; then
+    export PATH="$PATH:/usr/local/go/bin"
 fi
 
-# Go
-export PATH=$PATH:/usr/local/go/bin
-export PATH="$PATH:$(go env GOPATH)/bin" # To use tools installed via go install
+if command -v go >/dev/null 2>&1; then
+    export PATH="$PATH:$(go env GOPATH)/bin" # To use tools installed via go install
+fi
+
+# NVM
+
 
 # Load Oh-my-posh theme.
 eval "$(oh-my-posh init bash --config $SCRIPT_DIR/posh-themes/my_theme.omp.json)"
