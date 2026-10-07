@@ -140,8 +140,13 @@ else
 	echo "Cannot find .venv" > /dev/null
 fi
 
-if [ -d "$HOME/.cargo/bin" ] ; then
-    export PATH="$HOME/.cargo/bin:$PATH"
+# Rust/Cargo
+# if [ -d "$HOME/.cargo/bin" ] ; then
+#     export PATH="$HOME/.cargo/bin:$PATH"
+# fi
+
+if [ -f "$HOME/.cargo/env" ] ; then
+    . "$HOME/.cargo/env"
 fi
 
 # Set Default Editor
@@ -152,6 +157,10 @@ elif command -v vim &> /dev/null; then
     export VISUAL="/usr/bin/vim"
 	export EDITOR="$VISUAL"
 fi
+
+# Go
+export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:$(go env GOPATH)/bin" # To use tools installed via go install
 
 # Load Oh-my-posh theme.
 eval "$(oh-my-posh init bash --config $SCRIPT_DIR/posh-themes/my_theme.omp.json)"
