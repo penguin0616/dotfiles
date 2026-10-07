@@ -145,7 +145,10 @@ if [ -d "$HOME/.cargo/bin" ] ; then
 fi
 
 # Set Default Editor
-if command -v vim &> /dev/null; then
+if command -v nvim &> /dev/null; then
+    export VISUAL="/usr/bin/nvim"
+	export EDITOR="$VISUAL"
+elif command -v vim &> /dev/null; then
     export VISUAL="/usr/bin/vim"
 	export EDITOR="$VISUAL"
 fi
