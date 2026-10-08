@@ -26,7 +26,10 @@ fi
 export PATH
 
 # Get current directory (https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script/246128#246128)
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+# Get the directory of the target file if .bashrc is a symlink
+SCRIPT_SOURCE=$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")
+SCRIPT_DIR=$( cd -P -- "$( dirname -- "$SCRIPT_SOURCE" )" &> /dev/null && pwd )
+
 ##################################################
 # Options & Configuration
 ##################################################
@@ -174,4 +177,3 @@ fi
 eval "$(oh-my-posh init bash --config $SCRIPT_DIR/posh-themes/my_theme.omp.json)"
 
 unset SCRIPT_DIR
-	

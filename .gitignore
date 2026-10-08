@@ -3,3 +3,4 @@ misc
 posh-themes/*.txt
 posh-themes/*.md
 *.code-workspace
+docs

@@ -8,7 +8,13 @@
 2. Install [Oh My Posh](https://ohmyposh.dev).
 3. Extract dotfiles folder to your home directory (so you should have ``~/dotfiles``)
 4. Back up your existing dotfiles.
-5. Run ``~/dotfiles/setup.sh``.
+5. ~~Run ``~/dotfiles/setup.sh``.~~
+
+```sh
+ln -s /mnt/data/Projects/System/dotfiles/.bash_logout ~/.bash_logout
+ln -s /mnt/data/Projects/System/dotfiles/.bash_profile ~/.bash_profile
+ln -s /mnt/data/Projects/System/dotfiles/.bashrc ~/.bashrc
+```
 
 ### Configuring VSCode Terminal
 
